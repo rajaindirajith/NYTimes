@@ -9,5 +9,4 @@ struct Configuration {
    
     static let baseURL = "https://api.nytimes.com"
     static let api_key = "ok25FqoSE05vzH9JMq8amuAtryT7y8nJ"
-    
 }

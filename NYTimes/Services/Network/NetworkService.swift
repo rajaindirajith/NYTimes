@@ -11,29 +11,6 @@ enum HTTPMethod: String {
     case GET, POST, PUT, PATCH, DELETE
 }
 
-enum NetworkError: Error {
-    case invalidURL
-    case noInternetConnection
-    case serverError(statusCode: Int)
-    case decodingError(Error)
-    case unknown(Error)
-    
-    var errorDescription: String? {
-        switch self {
-        case .invalidURL:
-            return "The URL provided was invalid."
-        case .noInternetConnection:
-            return "No internet connection. Please check your network settings."
-        case .serverError(let statusCode):
-            return "Server error (code \(statusCode))."
-        case .decodingError(let error):
-            return "Failed to parse the response: \(error.localizedDescription)"
-        case .unknown(let error):
-            return "Unexpected error: \(error.localizedDescription)"
-        }
-    }
-}
-
 protocol NetworkServiceProtocol {
     func performRequest<T: Decodable, E:Encodable>(
         urlStr: String,
@@ -55,7 +32,7 @@ class NetworkService: NetworkServiceProtocol {
         
         // Create URLComponents from base URL string
         guard var components = URLComponents(string: urlStr) else {
-           throw  NetworkError.invalidURL
+           throw  APIError.invalidURL
         }
 
         // Add query parameters if provided
@@ -65,7 +42,7 @@ class NetworkService: NetworkServiceProtocol {
 
         // Final URL
         guard let url = components.url else {
-           throw  NetworkError.invalidURL
+           throw  APIError.invalidURL
         }
 
         var request = URLRequest(url: url)
@@ -79,36 +56,42 @@ class NetworkService: NetworkServiceProtocol {
         // Add body if any
         if let body = body {
                request.httpBody = try JSONEncoder().encode(body)
-               request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request
+                .setValue(
+                    StringConstants.application_json,
+                    forHTTPHeaderField: StringConstants.content_type
+                )
         }
         
         // send the request
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
 
+          
+            
             guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkError.serverError(statusCode: -1)
+                throw APIError.serverError(statusCode: -1)
             }
 
             guard (200...299).contains(httpResponse.statusCode) else {
-                throw NetworkError.serverError(statusCode: httpResponse.statusCode)
+                throw APIError.serverError(statusCode: httpResponse.statusCode)
             }
 
             do {
                 return try JSONDecoder().decode(T.self, from: data)
             } catch {
-                throw NetworkError.decodingError(error)
+                throw APIError.decodingError(error)
             }
 
         } catch let urlError as URLError {
             switch urlError.code {
             case .notConnectedToInternet:
-                throw NetworkError.noInternetConnection
+                throw APIError.noInternetConnection
             default:
-                throw NetworkError.unknown(urlError)
+                throw APIError.unknown(urlError)
             }
         } catch {
-            throw NetworkError.unknown(error)
+            throw APIError.unknown(error)
         }
     }
     
