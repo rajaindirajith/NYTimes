@@ -10,4 +10,8 @@ import Foundation
 
 struct Article: Decodable, Identifiable {
     let id: Int
+    let title: String
+    let byline: String
+    let abstract: String
+    let uri: String
 }
