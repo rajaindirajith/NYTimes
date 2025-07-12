@@ -25,6 +25,18 @@ struct Article: Decodable, Identifiable {
         case publishedDate = "published_date"
     }
     
+   
+    init(id: Int, url: String, publishedDate: String, updated: String, byline: String, title: String, abstract: String, media: [Media]) {
+        self.id = id
+        self.url = url
+        self.publishedDate = publishedDate
+        self.updated = updated
+        self.byline = byline
+        self.title = title
+        self.abstract = abstract
+        self.media = media
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -93,11 +105,17 @@ struct Article: Decodable, Identifiable {
 
 
 
-struct Media: Codable {
+struct Media: Decodable {
     let type: String
     let subtype: String
     let mediaMetadata: [MediaMetadata]
 
+    init(type: String, subtype: String, mediaMetadata: [MediaMetadata]) {
+        self.type = type
+        self.subtype = subtype
+        self.mediaMetadata = mediaMetadata
+    }
+    
     enum CodingKeys: String, CodingKey {
         case type, subtype
         case mediaMetadata = "media-metadata"
@@ -105,9 +123,16 @@ struct Media: Codable {
 }
 
 
-struct MediaMetadata: Codable {
+struct MediaMetadata: Decodable {
     let url: String
     let format: String
     let height: Int
     let width: Int
+    
+    init(url: String, format: String, height: Int, width: Int) {
+        self.url = url
+        self.format = format
+        self.height = height
+        self.width = width
+    }
 }

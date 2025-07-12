@@ -26,53 +26,59 @@ enum ArticlePeriod: Int, CaseIterable, Identifiable {
 }
 
 
+@MainActor
 class ArticleListViewModel: ObservableObject {
     @Published var articles: [Article] = []
     @Published var apiError: ErrorWrapper? = nil
     @Published var isLoading: Bool = false
     @Published var selectedPeriod: ArticlePeriod = .sevenDays {
-       didSet {
-           Task {
-               await fetchMostViewedArticles()
-           }
-       }
+        didSet {
+            startFetchingArticles()
+        }
     }
-    
+
+    private var fetchTask: Task<Void, Never>?
     let articlesFilterSection = "all-sections"
     var hasLoaded = false
-    
-    var apiService:ArticleAPIServiceProtocol
-    
+
+    var apiService: ArticleAPIServiceProtocol
+
     init(apiService: ArticleAPIServiceProtocol = ArticleAPIService()) {
         self.apiService = apiService
     }
 
-    func loadArticlesIfNeeded() async {
+    func loadArticlesIfNeeded() {
         guard !hasLoaded else { return }
         hasLoaded = true
-        await fetchMostViewedArticles()
+        startFetchingArticles()
     }
-    
-    @MainActor
+
+    func startFetchingArticles() {
+        fetchTask?.cancel()
+        fetchTask = Task { @MainActor in
+            await fetchMostViewedArticles()
+        }
+    }
+
     func fetchMostViewedArticles() async {
         isLoading = true
-        defer {
-            isLoading = false
-        }
-        
+        defer { isLoading = false }
+
         do {
-            let fetchedArticles:[Article] = try await apiService.fetchMostViewed(
+            let fetchedArticles: [Article] = try await apiService.fetchMostViewed(
                 articlesFilterSection,
                 period: selectedPeriod.rawValue
             )
-            
-            articles = fetchedArticles.sorted {
-                $0.lastModifiedDate > $1.lastModifiedDate
-            }
+
+            articles = fetchedArticles.sorted { $0.lastModifiedDate > $1.lastModifiedDate }
             apiError = nil
-            
+
         } catch {
             apiError = ErrorWrapper(message: error.localizedDescription)
         }
+    }
+    
+    deinit {
+        fetchTask?.cancel()
     }
 }

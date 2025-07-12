@@ -26,7 +26,7 @@ struct ArticleListView: View {
                     }
                     .listStyle(.plain)
                     .refreshable {
-                        await viewModel.fetchMostViewedArticles()
+                        viewModel.startFetchingArticles()
                     }
                 }
             }
@@ -57,7 +57,7 @@ struct ArticleListView: View {
                 )
             }
             .task {
-                await viewModel.loadArticlesIfNeeded()
+                 viewModel.loadArticlesIfNeeded()
             }
         }
     }
