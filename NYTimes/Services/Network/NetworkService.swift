@@ -55,7 +55,7 @@ class NetworkService: NetworkServiceProtocol {
 
         // Add body if any
         if let body = body {
-               request.httpBody = try JSONEncoder().encode(body)
+            request.httpBody = try JSONEncoder().encode(body)
             request
                 .setValue(
                     StringConstants.application_json,

@@ -6,13 +6,13 @@
 //
 
 protocol ArticleAPIServiceProtocol {
-    func fetchMostViewed(_ section: String, period: Int) async throws -> ArticleListResponse
+    func fetchMostViewed(_ section: String, period: Int) async throws -> [Article]
 }
 
 
 class ArticleAPIService:ArticleAPIServiceProtocol  {
    
-    func fetchMostViewed(_ section: String, period: Int) async throws -> ArticleListResponse {
+    func fetchMostViewed(_ section: String, period: Int) async throws -> [Article] {
         let queryParams: [String: Any] = [StringConstants.api_key:Configuration.api_key]
         let response:ArticleListResponse = try await NetworkService.shared.performRequest(
             urlStr: API.mostViewedArticle(
@@ -21,7 +21,7 @@ class ArticleAPIService:ArticleAPIServiceProtocol  {
             ).endPoint,
             body: nil as Empty?, queryParms: queryParams
             )
-        return response
+        return response.results
     }
         
 }

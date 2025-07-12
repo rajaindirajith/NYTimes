@@ -41,39 +41,38 @@ class ArticleListViewModel: ObservableObject {
     let articlesFilterSection = "all-sections"
     var hasLoaded = false
     
-    private lazy var apiService = ArticleAPIService()
+    var apiService:ArticleAPIServiceProtocol
+    
+    init(apiService: ArticleAPIServiceProtocol = ArticleAPIService()) {
+        self.apiService = apiService
+    }
 
     func loadArticlesIfNeeded() async {
-        
-           guard !hasLoaded else { return }
-           hasLoaded = true
-           await fetchMostViewedArticles()
-       }
+        guard !hasLoaded else { return }
+        hasLoaded = true
+        await fetchMostViewedArticles()
+    }
     
+    @MainActor
     func fetchMostViewedArticles() async {
-        await MainActor.run { isLoading = true }
+        isLoading = true
         defer {
-            Task { await MainActor.run { isLoading = false } }
+            isLoading = false
         }
         
         do {
-            let articlesResponse:ArticleListResponse = try await apiService.fetchMostViewed(
+            let fetchedArticles:[Article] = try await apiService.fetchMostViewed(
                 articlesFilterSection,
                 period: selectedPeriod.rawValue
             )
             
-            await MainActor.run {
-                articles = articlesResponse.results.sorted {
-                    $0.lastModifiedDate > $1.lastModifiedDate 
-                }
-                apiError = nil
+            articles = fetchedArticles.sorted {
+                $0.lastModifiedDate > $1.lastModifiedDate
             }
-                       
+            apiError = nil
             
         } catch {
-            await MainActor.run {
-               apiError = ErrorWrapper(message: error.localizedDescription)
-            }
+            apiError = ErrorWrapper(message: error.localizedDescription)
         }
     }
 }

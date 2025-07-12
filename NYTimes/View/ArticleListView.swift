@@ -22,6 +22,7 @@ struct ArticleListView: View {
                         NavigationLink(destination: ArticleContentView(article: article)) {
                             ArticleRowView(article: article)
                         }
+                        .listRowSeparator(.hidden)
                     }
                     .listStyle(.plain)
                     .refreshable {
