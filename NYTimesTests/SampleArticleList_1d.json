@@ -1,0 +1,141 @@
+{
+  "status": "OK",
+  "copyright": "Copyright (c) 2025 The New York Times Company.  All Rights Reserved.",
+  "num_results": 2,
+  "results": [
+    {
+      "uri": "nyt://interactive/c2864e50-739b-57b4-bb70-53d4f1ee1a40",
+      "url": "https://www.nytimes.com/interactive/2025/06/24/us/elections/results-new-york-city-mayor-primary.html",
+      "id": 100000010244950,
+      "asset_id": 100000010244950,
+      "source": "New York Times",
+      "published_date": "2025-06-24",
+      "updated": "2025-07-09 12:06:34",
+      "section": "U.S.",
+      "subsection": "Elections",
+      "nytdsection": "u.s.",
+      "adx_keywords": "internal-paywall-exempt;Elections;Primaries and Caucuses;Elections, Mayors;Sliwa, Curtis;Mamdani, Zohran;Stringer, Scott M;Myrie, Zellnor;Adams, Adrienne (1960- );Cuomo, Andrew M;Ramos, Jessica (1985- );Tilson, Whitney;Blake, Michael;Lander, Brad;Paperboy Prince (Rapper);New York",
+      "column": null,
+      "byline": "",
+      "type": "Interactive",
+      "title": "New York City Mayoral Primary Election Results",
+      "abstract": "Get live results and maps from the 2025 New York City primary election.",
+      "des_facet": [
+        "internal-paywall-exempt",
+        "Elections",
+        "Primaries and Caucuses",
+        "Elections, Mayors"
+      ],
+      "org_facet": [
+        
+      ],
+      "per_facet": [
+        "Sliwa, Curtis",
+        "Mamdani, Zohran",
+        "Stringer, Scott M",
+        "Myrie, Zellnor",
+        "Adams, Adrienne (1960- )",
+        "Cuomo, Andrew M",
+        "Ramos, Jessica (1985- )",
+        "Tilson, Whitney",
+        "Blake, Michael",
+        "Lander, Brad",
+        "Paperboy Prince (Rapper)"
+      ],
+      "geo_facet": [
+        "New York"
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "",
+          "caption": "",
+          "copyright": "The New York Times",
+          "approved_for_syndication": 1,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2025/06/24/multimedia/eln-POST-2025-06-24-state-ny-23f2fc/eln-POST-2025-06-24-state-ny-23f2fc-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2025/06/24/multimedia/eln-POST-2025-06-24-state-ny-23f2fc/eln-POST-2025-06-24-state-ny-23f2fc-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2025/06/24/multimedia/eln-POST-2025-06-24-state-ny-23f2fc/eln-POST-2025-06-24-state-ny-23f2fc-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    },
+    {
+      "uri": "nyt://interactive/ba52e8b1-dc54-5ba2-a2f8-f6ffc2bccf79",
+      "url": "https://www.nytimes.com/interactive/2025/movies/best-movies-21st-century.html",
+      "id": 100000010241467,
+      "asset_id": 100000010241467,
+      "source": "New York Times",
+      "published_date": "2025-06-22",
+      "updated": "2025-07-02 14:48:08",
+      "section": "Movies",
+      "subsection": "",
+      "nytdsection": "movies",
+      "adx_keywords": "vis-design;Movies",
+      "column": null,
+      "byline": "By The New York Times",
+      "type": "Interactive",
+      "title": "The 100 Best Movies of the 21st Century",
+      "abstract": "More than 500 influential directors, actors and other notable names in Hollywood and around the world voted on the best films released since Jan. 1, 2000. See how their ballots stacked up.",
+      "des_facet": [
+        "vis-design",
+        "Movies"
+      ],
+      "org_facet": [
+        
+      ],
+      "per_facet": [
+        
+      ],
+      "geo_facet": [
+        
+      ],
+      "media": [
+        {
+          "type": "image",
+          "subtype": "",
+          "caption": "",
+          "copyright": "",
+          "approved_for_syndication": 0,
+          "media-metadata": [
+            {
+              "url": "https://static01.nyt.com/images/2025/07/10/arts/100films-static-day-5/100films-static-05-thumbStandard.jpg",
+              "format": "Standard Thumbnail",
+              "height": 75,
+              "width": 75
+            },
+            {
+              "url": "https://static01.nyt.com/images/2025/07/10/arts/100films-static-day-5/100films-static-05-mediumThreeByTwo210.jpg",
+              "format": "mediumThreeByTwo210",
+              "height": 140,
+              "width": 210
+            },
+            {
+              "url": "https://static01.nyt.com/images/2025/07/10/arts/100films-static-day-5/100films-static-05-mediumThreeByTwo440.jpg",
+              "format": "mediumThreeByTwo440",
+              "height": 293,
+              "width": 440
+            }
+          ]
+        }
+      ],
+      "eta_id": 0
+    }
+  ]
+}
