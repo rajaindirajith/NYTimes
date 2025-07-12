@@ -29,7 +29,6 @@ class NetworkService: NetworkServiceProtocol {
     
     func performRequest<T, E>(urlStr: String, method: HTTPMethod = .GET, body: E? = nil, queryParms: [String : Any]? = nil, headers: [String : String]? = nil) async throws -> T where T : Decodable, E : Encodable {
         
-        
         // Create URLComponents from base URL string
         guard var components = URLComponents(string: urlStr) else {
            throw  APIError.invalidURL
@@ -67,8 +66,6 @@ class NetworkService: NetworkServiceProtocol {
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
 
-          
-            
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw APIError.serverError(statusCode: -1)
             }
