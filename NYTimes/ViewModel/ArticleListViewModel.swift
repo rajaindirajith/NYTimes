@@ -26,7 +26,7 @@ enum ArticlePeriod: Int, CaseIterable, Identifiable {
 }
 
 
-@MainActor
+
 class ArticleListViewModel: ObservableObject {
     @Published var articles: [Article] = []
     @Published var apiError: ErrorWrapper? = nil
@@ -55,11 +55,12 @@ class ArticleListViewModel: ObservableObject {
 
     func startFetchingArticles() {
         fetchTask?.cancel()
-        fetchTask = Task { @MainActor in
+        fetchTask = Task {
             await fetchMostViewedArticles()
         }
     }
 
+    @MainActor
     func fetchMostViewedArticles() async {
         isLoading = true
         defer { isLoading = false }
